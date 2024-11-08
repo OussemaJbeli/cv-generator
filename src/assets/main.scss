@@ -1,0 +1,25 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+#app{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(208, 209, 219);
+    .first_part{
+        width: 50%;
+    }
+    .second_part{
+        width: 50%;
+        min-height: 500px;
+    }
+}
+/* @media(max-width : 768px){
+    #app{
+        display: flex;
+        flex-direction: column;
+    }
+} */
