@@ -1,0 +1,23 @@
+Name: {Username}
+Job Title: {jobTitle}
+
+Contact Information:
+{contacts}
+
+Skills:
+{skills}
+
+Social Links:
+{socialLinks}
+
+About:
+{About}
+
+Work Experience:
+{workExperience}
+
+Education:
+{education}
+
+Hobbies:
+{hobbies}

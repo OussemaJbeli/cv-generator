@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
+    "@fortawesome/vue-fontawesome": "^3.0.8",
     "docxtemplater": "^3.52.0",
     "file-saver": "^2.0.5",
     "html2canvas": "^1.4.1",

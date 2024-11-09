@@ -1,75 +1,99 @@
 <template>
-  <div id="page">
-    <!-- Photo and Name Section -->
-    <div class="photo-and-name">
-      <img :src="profilePicture" class="photo" alt="Profile Picture" />
-      <div class="contact-info-box">
-        <h1 class="name">{{ name }}</h1>
-        <br />
-        <h3 class="job-title">{{ jobTitle }}</h3>
-        <p class="contact-details">
-          Phone: {{ phone }} &nbsp; - &nbsp; Email: {{ email }}
-        </p>
+  <div class="resume cv-template" id="cv-template">
+    <div class="resume_left">
+      <div class="resume_profile">
+        <img src="/eCijVBe.png" alt="profile_pic" />
+      </div>
+      <div class="resume_content">
+        <div class="resume_item resume_info">
+          <div class="title">
+            <p class="bold">{{ data.Username }}</p>
+            <p class="regular">{{ data.jobTitle }}</p>
+          </div>
+          <ul>
+            <li v-for="(contact, index) in data.contacts" :key="index">
+              <div class="icon flex justify-center items-center" v-html="contact.icon">
+              </div>
+              <div class="data">{{ contact.data }}</div>
+            </li>
+          </ul>
+        </div>
+        <div class="resume_item resume_skills">
+          <div class="title">
+            <p class="bold">Skills</p>
+          </div>
+          <ul>
+            <li v-for="(skill, index) in data.skills" :key="index">
+              <div class="skill_name">{{ skill.name }}</div>
+              <div class="skill_progress">
+                <span :style="{ width: skill.level + '%' }"></span>
+              </div>
+              <div class="skill_per">{{ skill.level }}%</div>
+            </li>
+          </ul>
+        </div>
+        <div class="resume_item resume_social">
+          <div class="title">
+            <p class="bold">Social</p>
+          </div>
+          <ul>
+            <li v-for="(social, index) in data.socialLinks" :key="index">
+              <div class="icon flex justify-center items-center" v-html="social.icon">
+              </div>
+              <div class="data">
+                <p class="semi-bold">{{ social.platform }}</p>
+                <p>{{ social.handle }}</p>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-
-    <!-- Objective Section -->
-    <div id="objective">
-      <h3>Objective</h3>
-      <p>{{ objective }}</p>
-    </div>
-
-    <!-- Education Section -->
-    <div id="education">
-      <h3>Education</h3>
-      <table>
-        <tr v-for="(edu, index) in education" :key="index">
-          <td>{{ edu.year }}</td>
-          <td><b>{{ edu.institution }}</b>: {{ edu.degree }}</td>
-        </tr>
-      </table>
-    </div>
-
-    <!-- Work Experience Section -->
-    <div id="work">
-      <h3>Experience</h3>
-      <table>
-        <tr v-for="(work, index) in workExperience" :key="index">
-          <td>{{ work.year }}</td>
-          <td><b>{{ work.company }}</b>: {{ work.position }}</td>
-        </tr>
-      </table>
-    </div>
-
-    <!-- Bio-Data Section -->
-    <div id="bio-data">
-      <h3>Bio-Data</h3>
-      <table>
-        <tr>
-          <td>F'Name:</td>
-          <td><b>{{ fatherName }}</b></td>
-        </tr>
-        <tr>
-          <td>Date of Birth:</td>
-          <td><b>{{ dob }}</b></td>
-        </tr>
-        <tr>
-          <td>CNIC:</td>
-          <td><b>{{ cnic }}</b></td>
-        </tr>
-        <tr>
-          <td>Religion:</td>
-          <td><b>{{ religion }}</b></td>
-        </tr>
-        <tr>
-          <td>Nationality:</td>
-          <td><b>{{ nationality }}</b></td>
-        </tr>
-        <tr>
-          <td>Marital Status:</td>
-          <td><b>{{ maritalStatus }}</b></td>
-        </tr>
-      </table>
+    <div class="resume_right">
+      <div class="resume_item resume_about">
+        <div class="title">
+          <p class="bold">About</p>
+        </div>
+        <p>{{ data.About }}</p>
+      </div>
+      <div class="resume_item resume_work">
+        <div class="title">
+          <p class="bold">Work Experience</p>
+        </div>
+        <ul>
+          <li v-for="(work, index) in data.workExperience" :key="index">
+            <div class="date">{{ work.date }}</div>
+            <div class="info">
+              <p class="semi-bold">{{ work.position }}</p>
+              <p>{{ work.description }}</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="resume_item resume_education">
+        <div class="title">
+          <p class="bold">Education</p>
+        </div>
+        <ul>
+          <li v-for="(education, index) in data.education" :key="index">
+            <div class="date">{{ education.date }}</div>
+            <div class="info">
+              <p class="semi-bold">{{ education.degree }}</p>
+              <p>{{ education.description }}</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="resume_item resume_hobby">
+        <div class="title">
+          <p class="bold">Hobby</p>
+        </div>
+        <ul>
+          <li v-for="(hobby, index) in data.hobbies" :key="index" class="flex justify-center items-center">
+            <div class="icon text-3xl" v-html="hobby.icon"></div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -77,178 +101,241 @@
 <script>
 export default {
   props: {
-    formData: Object,
-  },
-  data() {
-    return {
-      profilePicture: '/user.png', // Default profile picture path
-      name: 'Muhammad Owais',
-      jobTitle: 'IT Manager',
-      phone: '+92-344-4XX3-1XX',
-      email: 'contact@muhammadovi.com',
-      objective:
-        'To take a challenging and managerial role in the field of Computer programming and implement the expertise and experience gained in this field to develop complex project with efficiency and quality.',
-      education: [
-        { year: '2002 - 2015', institution: 'ABC School', degree: 'Standard KG-VIII' },
-        { year: '2012 - 2014', institution: 'XYZ School', degree: 'Standard IX-X' },
-        { year: '2012 - 2014', institution: 'ACCESS', degree: 'English Micro Scholarship Program by US Consulate' },
-        { year: '2015 - 2017', institution: 'The Professional\'s Academy', degree: 'Web Designing (HTML, CSS, JS, Bootstrap)' },
-        { year: '2015 - 2017', institution: 'Board of Intermediate Karachi', degree: 'Intermediate - Private' },
-      ],
-      workExperience: [
-        { year: '2014 - 2015', company: 'ABC Corp', position: 'IT Manager and Call Service Representative' },
-        { year: '2015 - Present', company: 'Reliable Punching', position: 'IT Manager and Customer Service Representative' },
-      ],
-      fatherName: 'Naseem Akhter',
-      dob: '25th November 1996',
-      cnic: '42401-XXXXXXX-7',
-      religion: 'Islam',
-      nationality: 'Pakistani',
-      maritalStatus: 'Unmarried',
-    };
+    data: Object,
   },
 };
 </script>
 
 <style scoped>
-* {margin: 0;padding: 0;}
-
-body{font-family: 'Montserrat', sans-serif;}
-
-#page {
-    min-height: 200px;
-    width: 60%;
-    min-width: 600px;
-    background: whitesmoke;
-    margin: 50px auto;
-    padding: 30px;
-    color: #27aae1;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  font-family: "Montserrat", sans-serif;
 }
 
-.photo-and-name {
-    /* NO STYLE NEEDED YET */
+
+.bold {
+  font-weight: 700;
+  font-size: 20px;
+  text-transform: uppercase;
 }
 
-.photo {
-    width: 15%;
-    min-width: 130px;
-    float: left;
-    margin-right: 20px;
+.semi-bold {
+  font-weight: 500;
+  font-size: 16px;
 }
 
-.contact-info-box {
-    width: 70.9%;
-    display: inline-block;
+.resume {
+  min-height: 1143px;
+  width: 800px;
+  height: auto;
+  display: flex;
+  margin: 0px auto;
+  font-size: 14px;
+  line-height: 22px;
+  color: #555555;
 }
 
-.name {
-    margin-bottom: -5px;
-}
-.job-title {
-    display: inline-block;
+.resume .resume_left {
+  width: 280px;
+  background: #ffd800;
 }
 
-.contact-details {
-    background: #27aae1;
-    color: white;
-    text-align: center;
-    margin: auto;
-    margin-top: 25px;
-    padding: 5px;
-    font-size: 15px;
+.resume .resume_left .resume_profile {
+  width: 100%;
+  height: 280px;
 }
 
-#objective {
-    
+.resume .resume_left .resume_profile img {
+  width: 100%;
+  height: 100%;
 }
 
-#objective h3 {
-    border: 1px solid #d3d3d3;
-    text-transform: uppercase;
-    padding: 5px;
-    border-radius: 5px;
-    margin: 30px 0 10px;
+.resume .resume_left .resume_content {
+  padding: 0 25px;
 }
 
-#objective p {
-    padding: 0 5px;
-    line-height: 25px;
-    font-size: 14px;
-    color: #000;
+.resume .title {
+  margin-bottom: 20px;
 }
 
-#education h3 {
-    border: 1px solid #d3d3d3;
-    text-transform: uppercase;
-    padding: 5px;
-    border-radius: 5px;
-    margin: 30px 0 10px;
+.resume .resume_left .bold {
+  color: #fff;
 }
 
-#education table td {
-    padding: 5px;
-    font-size: 14px;
-    color: #000;
+.resume .resume_left .regular {
+  color: #fff;
 }
 
-#education table tr.school-1 td:first-child {
-    width: 120px;
-    color: gray;
-    padding-bottom: 25px;
+.resume .resume_item {
+  padding: 25px 0;
+  border-bottom: 2px solid #fff;
 }
 
-#education table tr.school-2 td:first-child {
-    padding-bottom: 25px;
+.resume .resume_left .resume_item:last-child,
+.resume .resume_right .resume_item:last-child {
+  border-bottom: 0px;
 }
 
-#work h3 {
-    border: 1px solid #d3d3d3;
-    text-transform: uppercase;
-    padding: 5px;
-    border-radius: 5px;
-    margin: 30px 0 10px;
+.resume .resume_left ul li {
+  display: flex;
+  margin-bottom: 10px;
+  align-items: center;
 }
 
-#work table td {
-    padding: 5px;
-    font-size: 14px;
-    color: #000;
+.resume .resume_left ul li:last-child {
+  margin-bottom: 0;
 }
 
-#work table tr.work-1 td:first-child {
-    width: 120px;
-    color: gray;
-    padding-bottom: 25px;
+.resume .resume_left ul li .icon {
+  width: 35px;
+  height: 35px;
+  background: #fff;
+  color: #ffd800;
+  border-radius: 50%;
+  margin-right: 15px;
+  font-size: 16px;
+  position: relative;
 }
 
-#work table tr.work-1 td {
-    padding-bottom: 25px;
+.resume .icon i,
+.resume .resume_right .resume_hobby ul li i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-#work table tr.work-2 td:first-child {
-    width: 120px;
-    color: gray;
+.resume .resume_left ul li .data {
+  color: #fff;
 }
 
-#bio-data h3 {
-    border: 1px solid #d3d3d3;
-    text-transform: uppercase;
-    padding: 5px;
-    border-radius: 5px;
-    margin: 30px 0 10px;
+.resume .resume_left .resume_skills ul li {
+  display: flex;
+  margin-bottom: 10px;
+  color: #fff;
+  justify-content: space-between;
+  align-items: center;
 }
 
-#bio-data table td {
-    padding: 8px;
-    font-size: 15px;
-    color: #000;
+.resume .resume_left .resume_skills ul li .skill_name {
+  width: 25%;
 }
 
-#bio-data table tr td:first-child {
-    width: 200px;
+.resume .resume_left .resume_skills ul li .skill_progress {
+  width: 60%;
+  margin: 0 5px;
+  height: 5px;
+  background: #3b3b3b;
+  position: relative;
 }
 
-#bio-data table tr td:nth-child(2) {
-    width: 300px;
+.resume .resume_left .resume_skills ul li .skill_per {
+  width: 15%;
+}
+
+.resume .resume_left .resume_skills ul li .skill_progress span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: #fff;
+}
+
+.resume .resume_left .resume_social .semi-bold {
+  color: #fff;
+  margin-bottom: 3px;
+}
+
+.resume .resume_right {
+  width: 520px;
+  background: #fff;
+  padding: 25px;
+}
+
+.resume .resume_right .bold {
+  color: #ffd800;
+}
+
+.resume .resume_right .resume_work ul,
+.resume .resume_right .resume_education ul {
+  padding-left: 40px;
+  overflow: hidden;
+}
+
+.resume .resume_right ul li {
+  position: relative;
+}
+
+.resume .resume_right ul li .date {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.resume .resume_right ul li .info {
+  margin-bottom: 20px;
+}
+
+.resume .resume_right ul li:last-child .info {
+  margin-bottom: 0;
+}
+
+.resume .resume_right .resume_work ul li:before,
+.resume .resume_right .resume_education ul li:before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: -25px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 2px solid #ffd800;
+}
+
+.resume .resume_right .resume_work ul li:after,
+.resume .resume_right .resume_education ul li:after {
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: -21px;
+  width: 2px;
+  height: 115px;
+  background: #ffd800;
+}
+
+.resume .resume_right .resume_hobby ul {
+  display: flex;
+  justify-content: space-between;
+}
+
+.resume .resume_right .resume_hobby ul li {
+  width: 80px;
+  height: 80px;
+  border: 2px solid #ffd800;
+  border-radius: 50%;
+  position: relative;
+  color: #ffd800;
+}
+
+.resume .resume_right .resume_hobby ul li i {
+  font-size: 30px;
+}
+
+.resume .resume_right .resume_hobby ul li:before {
+  content: "";
+  position: absolute;
+  top: 40px;
+  right: -52px;
+  width: 50px;
+  height: 2px;
+  background: #ffd800;
+}
+
+.resume .resume_right .resume_hobby ul li:last-child:before {
+  display: none;
 }
 </style>
+
