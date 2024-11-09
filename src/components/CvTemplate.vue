@@ -162,11 +162,11 @@ export default {
 }
 
 .resume .resume_left .bold {
-  color: #fff;
+  color: #121212;
 }
 
 .resume .resume_left .regular {
-  color: #fff;
+  color: #555555;
 }
 
 .resume .resume_item {
@@ -209,13 +209,13 @@ export default {
 }
 
 .resume .resume_left ul li .data {
-  color: #fff;
+  color: #555555;
 }
 
 .resume .resume_left .resume_skills ul li {
   display: flex;
   margin-bottom: 10px;
-  color: #fff;
+  color: #1c1c1c;
   justify-content: space-between;
   align-items: center;
 }
@@ -228,8 +228,9 @@ export default {
   width: 60%;
   margin: 0 5px;
   height: 5px;
-  background: #3b3b3b;
+  background: #a4a4a4;
   position: relative;
+  border-radius: 5px;
 }
 
 .resume .resume_left .resume_skills ul li .skill_per {
@@ -245,7 +246,7 @@ export default {
 }
 
 .resume .resume_left .resume_social .semi-bold {
-  color: #fff;
+  color: #1c1c1c;
   margin-bottom: 3px;
 }
 
