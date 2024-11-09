@@ -104,12 +104,22 @@ export default {
         name: '',
         jobTitle: '',
         About: '',
-        contacts: [{ data: '' ,icon: ''}],
+        contacts: [
+          { data: 'local' ,icon: '<i class="fa-solid fa-location-dot"></i>'},
+          { data: 'phone' ,icon: '<i class="fa-solid fa-phone"></i>'},
+          { data: 'email' ,icon: '<i class="fa-solid fa-envelope"></i>'},
+          { data: 'www.portfoli.com' ,icon: '<i class="fa-solid fa-user"></i>'}
+        ],
         skills: [{ name: '', level: 0 }],
         workExperience: [{ date: '', position: '', description: '' }],
         education: [{ date: '', degree: '', description: '' }],
-        socialLinks: [{ platform: '', handle: '',icon: '' }],
-        hobbies: [{ icon: '' }],
+        socialLinks: [{ platform: 'Linkedin', handle: 'www.linkkidin.com',icon: '<i class="fa-brands fa-linkedin-in"></i>' }],
+        hobbies: [
+          { icon: '<i class="fa-solid fa-book"></i>' },
+          { icon: '<i class="fa-solid fa-dumbbell"></i>' },
+          { icon: '<i class="fa-solid fa-clapperboard"></i>' },
+          { icon: '<i class="fa-solid fa-book"></i>' }
+        ],
       }
     };
   },
